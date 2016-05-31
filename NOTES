@@ -1,0 +1,23 @@
+# GPIO
+http://makezine.com/projects/tutorial-raspberry-pi-gpio-pins-and-python/
+http://www.thirdeyevis.com/pi-page-2.php
+https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/temperature/
+http://hertaville.com/2012/11/18/introduction-to-accessing-the-raspberry-pis-gpio-in-c/
+https://github.com/WiringPi/WiringPi2-Python
+
+# WEBIOPI
+https://code.google.com/p/webiopi/
+# -install
+sudo aptitude update
+sudo aptitude install subversion
+svn checkout http://webiopi.googlecode.com/svn/trunk/ webiopi-trunk
+cd webiopi-trunk
+sudo ./setup.sh
+# -location:
+/usr/share/webiopi/htdocs
+
+
+# LED
+https://www.piborg.org/ledborg-new/examples
+https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/
+

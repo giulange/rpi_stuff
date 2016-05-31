@@ -1,0 +1,46 @@
+#*** NEW ***#
+
+ifconfig
+iwconfig
+
+# http://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip
+sudo vi /etc/dhcpcd.conf
+
+# paste at the end of file
+interface wlan0
+inform 192.168.1.233
+
+sudo reboot # and it worked !!!!
+
+
+#*** OLD ***#
+# http://www.modmypi.com/blog/tutorial-how-to-give-your-raspberry-pi-a-static-ip-address
+
+ifconfig | grep -i Bcast
+# inet addr:192.168.1.112  Bcast:192.168.1.255  Mask:255.255.255.0
+
+netstat -nr
+#Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+#0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 wlan0
+#192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 wlan0 i
+
+# We need:
+net addr                192.168.1.102 (Pi's Current IP Address / Static IP you want)
+Bcast                   192.168.1.255 (The Broadcast IP Range)
+Mask                    255.255.255.0 (Subnet Mask Address)
+'Gateway' Address       192.168.1.1   (IP of your router)
+'Destination' Address   192.168.1.0   (network)
+
+sudo vi /etc/network/interfaces
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+iface wlan0 inet static
+ address 192.168.1.201 	 # Static IP you want 
+ netmask 255.255.255.0	 # Subnet Mask Address
+ network 192.168.1.0     # 'Destination' Address
+ broadcast 192.168.1.255 # The Broadcast IP Range
+ gateway 192.168.1.1     # IP of your router
+
+
