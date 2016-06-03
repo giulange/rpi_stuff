@@ -9,10 +9,10 @@ import datetime
 import Adafruit_DHT
 
 DHT_TYPE		= 11
-DHT_GPIOPIN 		= 14
+DHT_GPIOPIN 		= 14 
 LED_GPIOPIN		= 3
 FREQUENCY_SECONDS	= 10	# How long to wait (in seconds) between measurements.
-FREQUENCY_SKIP		= 2
+FREQUENCY_SKIP		= 6
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(LED_GPIOPIN,GPIO.OUT)
