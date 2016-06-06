@@ -1,3 +1,7 @@
+# LC_ALL: cannot change locale: en_US.UTF-8
+sudo locale-gen en_US.UTF-8
+sudo dpkg-reconfigure locales # ––> deselect en_GB in place of en_US ––> DONE!!
+
 # GPIO
 http://makezine.com/projects/tutorial-raspberry-pi-gpio-pins-and-python/
 http://www.thirdeyevis.com/pi-page-2.php
