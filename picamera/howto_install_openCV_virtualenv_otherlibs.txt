@@ -1,0 +1,79 @@
+#01# link to install :: http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/
+#02# link to use the installed packages :: http://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/
+
+# operations done on rpi #1 B+,
+# Linux rpi-domotica 4.4.11+ #888 Mon May 23 20:02:58 BST 2016 armv6l GNU/Linux 
+
+sudo apt-get update
+sudo apt-get upgrade
+
+# don't do rpi-update because obsolete!
+
+# step #1
+sudo apt-get install build-essential cmake pkg-config
+
+# step #2
+sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
+
+# step #3
+sudo apt-get install libgtk2.0-dev
+
+# step #4
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+
+# step #5
+sudo apt-get install libatlas-base-dev gfortran
+
+# step #6
+cd ~/Downloads
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python get-pip.py
+
+# step #7
+#	https://pypi.python.org/pypi/virtualenv
+#	https://virtualenvwrapper.readthedocs.io/en/latest/
+sudo pip install virtualenv virtualenvwrapper
+sudo rm -rf ~/.cache/pip
+
+vi ~/.profile
+	# virtualenv and virtualenvwrapper
+	export WORKON_HOME=$HOME/.virtualenvs
+	source /usr/local/bin/virtualenvwrapper.sh
+source ~/.profile
+
+mkvirtualenv cv
+
+# step #8
+sudo apt-get install python2.7-dev
+pip install numpy
+
+# step #9
+cd ~/Downloads
+wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download
+unzip opencv-2.4.10.zip
+cd opencv-2.4.10
+
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..
+
+# opencv 2.4.9 & 2.4.10 cannot be compiled with FFMPEG, so I exclude it:
+#	https://github.com/Itseez/opencv/issues/4940
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON -D WITH_FFMPEG=OFF ..
+
+make
+sudo make install
+sudo ldconfig
+
+# step #10
+cd ~/.virtualenvs/cv/lib/python2.7/site-packages/
+ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+ln -s /usr/local/lib/python2.7/site-packages/cv.py cv.py
+
+# step #11
+workon cv
+python
+>>> import cv2
+>>> cv2.__version__
+
+
