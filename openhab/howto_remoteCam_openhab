@@ -1,0 +1,42 @@
+#01# I installed opehab :: https://github.com/openhab/openhab/wiki/Linux-and-OS-X
+
+#02# I modified sitemaps with live camera & led
+#	https://www.element14.com/community/community/design-challenges/forget-me-not/blog/2014/08/11/elro-coco-with-openhab#jive_content_id_Pi_Camera
+sudo vi /etc/openhab/configurations/sitemaps/home.sitemap
+
+sitemap home label="Home Langella"
+{
+ //------------------------------------------------------------------------
+ // Raspberry Pi Domotica :: DEV
+ // GPIO
+ //------------------------------------------------------------------------
+ Frame label="Rasperry Pi #1 GPIO"
+ {
+   Switch item=RaspiLED
+ }
+ Frame label="Live Camera" {
+   Text item=Salone icon="Security_Camera-512" {
+     Frame {
+       Video url="http://192.168.1.233:90/html/cam_pic_new.php" encoding="mjpeg"
+     }
+   }
+   Text item=Cucina icon="Security_Camera-512" {
+     Frame {
+       Video url="http://192.168.1.233:90/html/cam_pic_new.php" encoding="mjpeg"
+     }
+   }
+}
+
+
+#03# I created an item for the led light
+sudo vi /etc/openhab/configurations/items/home.items
+
+Switch RaspiLED{ gpio="pin:2" }
+
+#04# I installed RPi_Cam_Web_Interface
+#	http://elinux.org/RPi-Cam-Web-Interface#Remote_access_to_website_with_User.2FPass_and_changing_port
+# I used my git repo, check that future versions are available otherwise go tho the source repo.
+ 
+#05# I connect to the openhab app with led light control and camera live!!
+http://192.168.1.233:8085/openhab.app?sitemap=home
+

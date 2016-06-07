@@ -1,3 +1,8 @@
+# NOTES:
+# I tried the following installation and then ran the 10_motion_detection_algorithm__openCV.py
+# script. The bad news is that I wasn't able to let the script do the task it was designed for.
+# I need more time to better investigate how to be good at let the script working fine!!
+
 #01# link to install :: http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/
 #02# link to use the installed packages :: http://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/
 

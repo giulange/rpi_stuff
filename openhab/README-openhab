@@ -1,0 +1,14 @@
+# configuration
+# https://github.com/openhab/openhab/wiki/Configuring-the-openHAB-runtime
+
+# change default port
+#  https://github.com/openhab/openhab/wiki/Samples-Tricks
+/etc/default/openhab
+
+# restart the service
+sudo systemctl status openhab
+sudo systemctl stop   openhab
+sudo systemctl start  openhab
+
+# icons
+ls -la /usr/share/openhab/webapps/images/
