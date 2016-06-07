@@ -4,11 +4,15 @@ ifconfig
 iwconfig
 
 # http://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip
-sudo vi /etc/dhcpcd.conf
 
-# paste at the end of file
+sudo vi /etc/dhcpcd.conf
+# paste at the end of file, WiFi
 interface wlan0
-inform 192.168.1.233
+  inform 192.168.1.233
+
+# paste at the end of file, RJ45 ~ CABLE
+interface eth0
+  static ip_address=192.168.1.233
 
 sudo reboot # and it worked !!!!
 
