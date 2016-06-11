@@ -1,0 +1,1 @@
+Switch LED "LED" { gpio="pin:2 activelow:no debounce:20 force:yes" }

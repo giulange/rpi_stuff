@@ -10,6 +10,14 @@ sudo vi /etc/dhcpcd.conf
 interface wlan0
   inform 192.168.1.233
 
+
+interface wlan0
+  address=192.168.1.233
+  netmask=255.255.255.0
+  broadcast=192.168.1.255
+  gateway=192.168.1.1
+
+
 # paste at the end of file, RJ45 ~ CABLE
 interface eth0
   static ip_address=192.168.1.233

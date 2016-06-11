@@ -1,0 +1,3 @@
+Switch RaspiLED{ gpio="pin:2" }
+Number TEMP_rpidom "Temperature [%.1f °C]" <temperature> { exec="<[/home/pi/git/rpi_stuff/DHT_HR-T__openhab.py 14 TEMP:60000:REGEX((.*?))]" }
+Number LUFT_rpidom "Relative Humidity [%.1f %%]" <humidity> { exec="<[/home/pi/git/rpi_stuff/DHT_HR-T__openhab.py 14 HUM:60000:REGEX((.*?))]" }

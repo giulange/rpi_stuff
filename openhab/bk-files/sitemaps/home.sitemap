@@ -1,0 +1,29 @@
+sitemap home label="Home Langella"
+{ 
+ //------------------------------------------------------------------------
+ // Raspberry Pi Domotica :: DEV
+ // GPIO
+ //------------------------------------------------------------------------
+ Frame label="Rasperry Pi #1 GPIO"
+ {
+   Switch item=RaspiLED
+ }
+ Frame label="Live Camera" {
+   Text item=Salone icon="Security_Camera-512" {
+     Frame {
+       Video url="http://192.168.1.233:90/html/cam_pic_new.php" encoding="mjpeg" 
+     }
+   }
+   Text item=Cucina icon="Security_Camera-512" {
+     Frame {
+       Video url="http://192.168.1.233:90/html/cam_pic_new.php" encoding="mjpeg"
+     }
+   }        
+}
+
+ Frame label="Salone" {
+   Text item=TEMP_rpidom
+   Text item=LUFT_rpidom
+ }
+
+

@@ -1,0 +1,6 @@
+sitemap home label="Home"
+{
+ Frame label="Demo" {
+  Switch item=LED label="LED" 
+ }
+}

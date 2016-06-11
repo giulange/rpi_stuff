@@ -1,0 +1,19 @@
+# Instructions on how to configure openhab reading RH & T from
+# a pi on locale network.
+
+# Follow instructions here :: https://klenzel.de/3100
+# use as reference this :: http://b.truzzi.me/home-temperature-monitoring-using-openhab-rpi-esp8266-and-hdc1000/
+
+# install exec binding on pi with openhab:
+mv org.openhab.binding.exec-1.8.3.jar /usr/share/openhab/addons/
+# the addon will be automatically installed
+
+# addons can be downloaded from here :: http://www.openhab.org/getting-started/downloads.html
+
+# create a script querying the current values of the variables (RH & T)
+# I created this one, available on git repo:
+DHT_HR-T__openhab.py
+# and I set this:
+chmod +x /home/pi/git/rpi_stuff/DHT_HR-T__openhab.py
+sudo chown openhab:openhab /home/pi/git/rpi_stuff/DHT_HR-T__openhab.py
+ 
