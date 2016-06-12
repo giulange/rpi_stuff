@@ -2,25 +2,20 @@
 
 ifconfig
 iwconfig
+netstat -nr
 
 # http://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip
 
 sudo vi /etc/dhcpcd.conf
-# paste at the end of file, WiFi
+# paste at the end of file, WiFi:
 interface wlan0
   inform 192.168.1.233
 
-
-interface wlan0
-  address=192.168.1.233
-  netmask=255.255.255.0
-  broadcast=192.168.1.255
-  gateway=192.168.1.1
-
-
 # paste at the end of file, RJ45 ~ CABLE
 interface eth0
-  static ip_address=192.168.1.233
+  static ip_address=192.168.1.233/24
+  static routers=192.168.1.1
+  static domain_name_servers=192.168.1.1
 
 sudo reboot # and it worked !!!!
 
@@ -49,7 +44,7 @@ allow-hotplug wlan0
 iface wlan0 inet manual
     wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 iface wlan0 inet static
- address 192.168.1.201 	 # Static IP you want 
+ address 192.168.1.233 	 # Static IP you want 
  netmask 255.255.255.0	 # Subnet Mask Address
  network 192.168.1.0     # 'Destination' Address
  broadcast 192.168.1.255 # The Broadcast IP Range

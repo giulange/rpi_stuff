@@ -1,0 +1,60 @@
+# repo is this
+https://github.com/mikebrady/shairport-sync
+
+# pre-requisites
+#  these may already be installed.
+sudo apt-get install build-essential git
+sudo apt-get install autoconf automake libtool libdaemon-dev libasound2-dev libpopt-dev libconfig-dev
+#  if you want to use Avahi (recommended).
+sudo apt-get install avahi-daemon libavahi-client-dev
+#  if you want to use OpenSSL and libcrypto, or use PolarSSL otherwise.
+sudo apt-get install libssl-dev
+#  if you want to use PolarSSL, or use OpenSSL/libcrypto otherwise.
+sudo apt-get install libpolarssl-dev
+#  if you want support for libsoxr-based resampling.
+#  This library is in many recent distributions, including Jessie and Raspioan Jessie;
+#  if not, instructions for how to build it from source for Raspian/Debian Wheezy
+#  are available at LIBSOXR.md.
+sudo apt-get install libsoxr-dev
+
+cd git/
+git clone https://github.com/mikebrady/shairport-sync.git
+cd shairport-sync/
+
+# check whether my Raspbian is running System-D (you will have one or more line in response)
+ps aux | grep systemd | grep -v grep
+
+# config
+autoreconf -i -f
+./configure --with-alsa --with-avahi --with-ssl=openssl --with-metadata --with-soxr --with-systemd --with-configfile
+
+
+# build the app
+make
+
+# shairport-sync group and user
+getent group shairport-sync &>/dev/null || sudo groupadd -r shairport-sync >/dev/null
+getent passwd shairport-sync &> /dev/null || sudo useradd -r -M -g shairport-sync -s /usr/bin/nologin -G audio shairport-sync >/dev/null
+
+# install
+sudo make install
+
+# enable Shairport Sync to start automatically at system startup
+sudo systemctl enable shairport-sync
+
+# CONFIGURATION for running app
+sudo vi /etc/shairport-sync.conf
+
+#   Here is an example for for a Raspberry Pi using its internal soundcard — device hw:0 — that drives the headphone jack:
+#   ***this config worked on rpi-domotica***
+general = {
+  name = "Kitchen";
+};
+
+alsa = {
+  output_device = "hw:0";
+  mixer_control_name = "PCM";
+};
+
+
+
