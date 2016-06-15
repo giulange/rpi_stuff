@@ -1,0 +1,42 @@
+# use as reference the guide in howto_remoteDHT_openhab
+
+# create the script rpi_T__openhab.sh with the following instructions:
+
+#!/bin/bash
+INPUT=$(/usr/bin/ssh -i ~/.ssh/id_rsa root@192.168.1.$1 "/bin/cat /sys/class/thermal/thermal_zone0/temp")
+echo $INPUT/1000 |bc -l| python -c "print round(float(raw_input()),2)"
+
+# set permissions
+chmod +x rpi_T__openhab.sh
+sudo chown openhab:openhab rpi_T__openhab.sh
+
+# This must be run as root. It means you have to copy the public key into the remote rpi from which to get the internal Temperature.
+sudo su -
+ssh-keygen -t rsa -b 4096
+cat ~/.ssh/id_rsa.pub | ssh pi@192.168.1.XXX 'cat >> ~/authorized_keys_tmp'
+# go to the remote pi
+ssh pi@192.168.1.XXX
+# copy the key in ~/authorized_keys_tmp into ~/.ssh/authorized_keys
+sudo cat ~/authorized_keys_tmp | cat >> /root/.ssh/authorized_keys
+# now you can ssh as root
+
+# to run the script from within the rpi hosting the script
+sudo su -
+ssh-keygen -t rsa -b 4096 #if not yet done!
+cat ~/.ssh/id_rsa.pub | cat >> ~/.ssh/authorized_keys # on the same rpi
+
+# install bc, required by the script
+sudo apt-get install bc
+
+# test the pi using the local version of the script
+sudo ./rpi_T_locale__openhab.sh
+
+# now you can test the remote query:
+sudo ./rpi_T__openhab.sh 234
+
+# configure openhab:
+sudo vi /etc/openhab/configurations/items/home.items
+Number TEMP_rpi234 "Temperature rpi-irc [%.1f °C]" <temperature> { exec="<[/home/pi/git/rpi_stuff/openhab/rpi_T__openhab.sh 234:60000:REGEX((.*?))]" }
+
+sudo vi /etc/openhab/configurations/sitemaps/home.sitemap
+Text item=TEMP_rpi234

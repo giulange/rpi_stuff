@@ -23,7 +23,10 @@ sitemap home label="Home Langella"
 
  Frame label="Salone" {
    Text item=TEMP_rpidom
-   Text item=LUFT_rpidom
+   Text item=ReHu_rpidom
+   Text item=TEMP_rpi234
+   Text item=TEMP_rpi233
+   Text item=TEMP_rpi235
  }
 
 

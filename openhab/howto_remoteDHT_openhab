@@ -11,9 +11,22 @@ mv org.openhab.binding.exec-1.8.3.jar /usr/share/openhab/addons/
 # addons can be downloaded from here :: http://www.openhab.org/getting-started/downloads.html
 
 # create a script querying the current values of the variables (RH & T)
-# I created this one, available on git repo:
+# I created this one, available on my git repo "rpi_stuff":
 DHT_HR-T__openhab.py
 # and I set this:
 chmod +x /home/pi/git/rpi_stuff/DHT_HR-T__openhab.py
 sudo chown openhab:openhab /home/pi/git/rpi_stuff/DHT_HR-T__openhab.py
- 
+
+# then I wrote this line into items:
+sudo vi /etc/openhab/configurations/items/home.items  
+
+Number TEMP_rpidom "Temperature [%.1f °C]"       <temperature> { exec="<[/home/pi/git/rpi_stuff/openhab/DHT_HR-T__openhab.py 14 TEMP:60000:REGEX((.*?))]" }
+Number ReHu_rpidom "Relative Humidity [%.1f %%]" <humidity>    { exec="<[/home/pi/git/rpi_stuff/openhab/DHT_HR-T__openhab.py 14 HUM:60000:REGEX((.*?))]"  }
+
+# and this into sitemap:
+sudo vi /etc/openhab/configurations/sitemaps/home.sitemap
+
+ Frame label="Salone" {
+   Text item=TEMP_rpidom
+   Text item=ReHu_rpidom
+ }

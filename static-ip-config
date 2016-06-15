@@ -12,6 +12,7 @@ interface wlan0
   inform 192.168.1.233
 
 # paste at the end of file, RJ45 ~ CABLE
+#   https://www.raspberrypi.org/forums/viewtopic.php?p=798866#p798866
 interface eth0
   static ip_address=192.168.1.233/24
   static routers=192.168.1.1

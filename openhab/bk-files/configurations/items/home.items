@@ -1,0 +1,6 @@
+Switch RaspiLED{ gpio="pin:2" }
+Number TEMP_rpidom "Temperature [%.1f °C]"       <temperature> { exec="<[/home/pi/git/rpi_stuff/openhab/DHT_HR-T__openhab.py 14 TEMP:60000:REGEX((.*?))]" }
+Number ReHu_rpidom "Relative Humidity [%.1f %%]"    <humidity> { exec="<[/home/pi/git/rpi_stuff/openhab/DHT_HR-T__openhab.py 14 HUM:60000:REGEX((.*?))]"  }
+Number TEMP_rpi234 "Temperature rpi-irc [%.1f °C]" <temperature> { exec="<[/home/pi/git/rpi_stuff/openhab/rpi_T__openhab.sh 234:60000:REGEX((.*?))]" }
+Number TEMP_rpi233 "Temperature rpi-domotica [%.1f °C]" <temperature> { exec="<[/home/pi/git/rpi_stuff/openhab/rpi_T__openhab.sh 233:60000:REGEX((.*?))]" }
+Number TEMP_rpi235 "Temperature rpi-osmc [%.1f °C]" <temperature> { exec="<[/home/pi/git/rpi_stuff/openhab/rpi_T__openhab.sh 235:60000:REGEX((.*?))]" }
