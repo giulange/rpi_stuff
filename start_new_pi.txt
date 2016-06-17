@@ -1,0 +1,25 @@
+# install raspbian
+download OS, extract to .img, install .img
+# issues: if you get an error use aria compressa in Mac port for SD
+
+# set basic features
+sudo raspi-config
+# configure camera, ssh, etc. as needed
+
+# set static address (see static-ip-config file)
+
+# git
+sudo apt-get install git
+ssh-keygen -t rsa -b 4096
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+# then add public key to github
+cat ~/.ssh/id_rsa.pub
+# goto Settings --> SSH and GPG keys --> New SSH key --> paste key --> Add SSH key
+# NOTES: clone needed repos
+
+# extend vi to full version
+sudo apt-get install vim
+
+# consider the installation of the following packages too:
+sudo apt-get install htop # ...add others!
