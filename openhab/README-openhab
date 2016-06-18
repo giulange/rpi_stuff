@@ -1,4 +1,6 @@
-
+# install openhab on Raspbian (Jessie)
+#  follow instructions here :: https://github.com/openhab/openhab/wiki/Linux-and-OS-X#apt-get
+#  remember that jessie is based on systemd
 
 # enable forwarding of the secure port to connect from remote:
 http://www.instructables.com/id/Garage-Genie-Parking-Remote-Control/step8/Remote-Access-Security-and-Tips/

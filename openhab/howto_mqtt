@@ -1,0 +1,61 @@
+# I need to turn lights on/off using a rpi via gpio connected to rele.
+# openhab can have an item with in/out-bound messages turning lights on/off
+# on a remote rpi, with respect to that hosting openhab.
+# To use this option I need to install a mqtt broker on the remote rpi, that is
+# the rpi having the connetion to rele and then to lights.
+
+# I need 2 rpi-s
+#	rpi#1 with openhab [SERVER] :: 192.168.1.233
+#	rpi#2 with mqtt broker (mosquitto) [ROOM] :: 192.168.1.232
+
+# step #01 :: install openhab on rpi#1
+#  see instructions in file README-openhab
+#  install mosquitto client
+sudo apt-get install mosquitto-clients
+
+# step #02 :: install mosquitto on rpi#2
+sudo apt-get install mosquitto mosquitto-clients 
+
+
+# step #03 :: activate required pins on "ROOM" rpi#2
+# *tutorial* :: https://geekytheory.com/tutorial-raspberry-pi-gpio-parte-1-control-de-un-led/
+# activate PIN 3: (I tested the rpi<-->rele<-->220v Light
+echo 3 > /sys/class/gpio/export
+# set as OUTPUT led:
+echo out > /sys/class/gpio/gpio3/direction
+# turn ON led:
+echo 1 > /sys/class/gpio/gpio3/value
+# turn OFF led:
+echo 0 > /sys/class/gpio/gpio3/value
+# delete PIN 5:
+#echo 5 > /sys/class/gpio/unexport
+
+# step 04 :: subscribe to GPIO topic on rpi#2 [ROOM] 
+mosquitto_sub -h 192.168.1.232 -t "GPIO" > /sys/class/gpio/gpio3/value
+
+# step 05 :: publish to GPIO topic from rpi#1 [SERVER]
+mosquitto_pub -h 192.168.1.232 -t "GPIO" -m "0"
+mosquitto_pub -h 192.168.1.232 -t "GPIO" -m "1"
+
+# step 06 :: configure openhab on rpi#1
+# set broker
+sudo vi /etc/openhab/configurations/openhab.cfg
+mqtt:mosquitto232.url=tcp://192.168.1.232:1883
+# set item with outbound message
+sudo vi /etc/openhab/configurations/items/home.items
+Switch myFirstLight {mqtt=">[mosquitto232:GPIO:command:ON:1],>[mosquitto232:GPIO:command:OFF:0]"}
+# set item in sitemap
+sudo vi /etc/openhab/configurations/sitemaps/home.sitemap
+Switch item=myFirstLight
+
+# LINKS
+# [!!!]*gpio* https://geekytheory.com/tutorial-raspberry-pi-gpio-y-mqtt-parte-1/
+# *install* http://owntracks.org/booklet/guide/broker/
+# *mqtt.py* http://www.ladeezfirstmedia.com/2014/04/20/make-an-led-light-blink-on-your-raspberry-pi-from-your-corona-sdk-app/
+# *temperature* http://www.instructables.com/id/Remote-Temperature-Monitoring-Using-MQTT-and-ESP82/?ALLSTEPS
+# *paho* http://owntracks.org/booklet/tech/program/
+# *TSL* http://jpmens.net/2013/09/01/installing-mosquitto-on-a-raspberry-pi/
+
+# UNUSED
+# step #03 :: install paho, for pyhon bindings to mqtt
+# sudo pip install paho-mqtt
