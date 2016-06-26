@@ -1,0 +1,22 @@
+# see official link :: https://picamera.readthedocs.io/en/release-1.11/
+
+# I N S T A L L 
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python-picamera python3-picamera
+
+# R E M O V E
+sudo apt-get remove python-picamera python3-picamera
+
+# S U R V E I L L A N C E
+#  general
+https://www.raspberrypi.org/blog/turn-your-pi-into-a-low-cost-hd-surveillance-cam/
+#  detailed instructions
+http://www.codeproject.com/Articles/665518/Raspberry-Pi-as-low-cost-HD-surveillance-camera
+#  notifications on apple devices
+http://growl.info
+
+# D I Y   h o m e   a l a r m 
+https://medium.com/@Cvrsor/how-to-make-a-diy-home-alarm-system-with-a-raspberry-pi-and-a-webcam-2d5a2d61da3d#.qromfg8x2
+
+

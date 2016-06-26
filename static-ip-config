@@ -6,6 +6,25 @@ netstat -nr
 
 # http://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip
 
+# set WiFi from command line ***it works***
+# https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.mdi
+# recognize SID:
+sudo iwlist wlan0 scan
+sudo iwlist wlan0 scan | grep ESSID
+sudo iwlist wlan0 scan | grep IEEE
+# configure connection to recognized SID:
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+# and write:
+network={
+    ssid="TP-LINK_GIULY"
+    psk="M9C6NKDM37JMF"
+}
+# verify if it has successfully connected using:
+ifconfig wlan0 # inet addr field has an address?
+# restart network interface
+sudo ifdown wlan0
+sudo ifup wlan0
+
 sudo vi /etc/dhcpcd.conf
 # paste at the end of file, WiFi:
 interface wlan0

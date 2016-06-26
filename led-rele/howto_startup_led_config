@@ -1,0 +1,13 @@
+# edit file to set values at startup
+sudo vi /etc/rc.local
+
+#________________________________________________________
+# activate BOARD PIN 3 which is GPIO2: (I tested the rpi<-->LED)
+echo 2 > /sys/class/gpio/export
+# set as OUTPUT led:
+echo out > /sys/class/gpio/gpio2/direction
+# turn OFF led:
+echo 0 > /sys/class/gpio/gpio2/value
+#________________________________________________________
+
+
