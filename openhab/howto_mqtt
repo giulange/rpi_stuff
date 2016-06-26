@@ -31,7 +31,20 @@ echo 0 > /sys/class/gpio/gpio3/value
 #echo 5 > /sys/class/gpio/unexport
 
 # step 04 :: subscribe to GPIO topic on rpi#2 [ROOM] 
+#  on-hte-fly:
 mosquitto_sub -h 192.168.1.232 -t "GPIO" > /sys/class/gpio/gpio3/value
+#  at startup:
+sudo vi /etc/rc.local  
+#________________________________________________________
+# activate PIN 3: (I tested the rpi<-->rele<-->220v Light
+echo 3 > /sys/class/gpio/export
+# set as OUTPUT led:
+echo out > /sys/class/gpio/gpio3/direction
+# turn OFF led:
+echo 1 > /sys/class/gpio/gpio3/value
+# subscribe to switch a 220v light via rel?:
+mosquitto_sub -h 192.168.1.232 -t "GPIO" > /sys/class/gpio/gpio3/value
+#________________________________________________________
 
 # step 05 :: publish to GPIO topic from rpi#1 [SERVER]
 mosquitto_pub -h 192.168.1.232 -t "GPIO" -m "0"
@@ -50,12 +63,18 @@ Switch item=myFirstLight
 
 # LINKS
 # [!!!]*gpio* https://geekytheory.com/tutorial-raspberry-pi-gpio-y-mqtt-parte-1/
+# [!!!]*gpio* https://geekytheory.com/tutorial-raspberry-pi-gpio-y-mqtt-parte-2/
+# *explanation* http://www.hivemq.com/blog/mqtt-essentials-part2-publish-subscribe
 # *install* http://owntracks.org/booklet/guide/broker/
 # *mqtt.py* http://www.ladeezfirstmedia.com/2014/04/20/make-an-led-light-blink-on-your-raspberry-pi-from-your-corona-sdk-app/
 # *temperature* http://www.instructables.com/id/Remote-Temperature-Monitoring-Using-MQTT-and-ESP82/?ALLSTEPS
 # *paho* http://owntracks.org/booklet/tech/program/
 # *TSL* http://jpmens.net/2013/09/01/installing-mosquitto-on-a-raspberry-pi/
+# *IoT mqtt* https://utbrudd.bouvet.no/2014/03/10/an-internet-of-things-demo-using-raspberry-pi-arduino-minecraft-and-mqtt/
+# *MQTT broker* http://owntracks.org/booklet/guide/broker/
 
 # UNUSED
 # step #03 :: install paho, for pyhon bindings to mqtt
 # sudo pip install paho-mqtt
+
+
