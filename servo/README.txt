@@ -8,5 +8,8 @@
 #    (2) orange : 5v         : pin 04
 #    (3) yellow : output pin : pin 11
 #    
+# L I N K S
+*bar controlling servo motors:
+http://razzpisampler.oreilly.com/ch05.html
 
 
