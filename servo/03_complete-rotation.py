@@ -5,7 +5,7 @@
 
 OPIN 		= 11
 f 		= 50 		# signal frequency [Hz]
-PAUSE		= 0.20 		# 0.05
+PAUSE		= 0.10 		# 0.05
 FACTOR		= 10.0
 FullLeft	= 3
 FullRight	= 13

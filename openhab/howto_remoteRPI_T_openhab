@@ -17,7 +17,8 @@ cat ~/.ssh/id_rsa.pub | ssh pi@192.168.1.XXX 'cat >> ~/authorized_keys_tmp'
 # go to the remote pi
 ssh pi@192.168.1.XXX
 # copy the key in ~/authorized_keys_tmp into ~/.ssh/authorized_keys
-sudo cat ~/authorized_keys_tmp | cat >> /root/.ssh/authorized_keys
+sudo su -
+cat /home/pi/authorized_keys_tmp | cat >> /root/.ssh/authorized_keys
 # now you can ssh as root
 
 # to run the script from within the rpi hosting the script
