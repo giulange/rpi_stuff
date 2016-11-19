@@ -1,5 +1,16 @@
+# rpi audio streaming using bluetooth
+#   https://www.raspberrypi.org/forums/viewtopic.php?t=68779
+
+# full config for external bluetooth audio
+#   http://www.instructables.com/id/Turn-your-Raspberry-Pi-into-a-Portable-Bluetooth-A/?ALLSTEPS
+
 # see this link, with a lot of advices:
 #   https://www.raspberrypi.org/forums/viewtopic.php?t=138145&f=28
+
+# How to pair a bluetooth device from command line on Linux:
+#   http://www.heatxsink.com/entry/how-to-pair-a-bluetooth-device-from-command-line-on-linux
+
+
 
 # install packages, unsure they are necessary under Jessy:
 #   [in Jessie, the bluez-utils package has been removed!!]
@@ -19,6 +30,9 @@ sudo systemctl restart bluetooth
 
 # recognize on-board BT address:
 hcitool dev
+
+# Display the current bluetooth configuration:
+sudo hciconfig -a
 
 # scan for external devices:
 hcitool scan
