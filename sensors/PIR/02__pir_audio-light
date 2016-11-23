@@ -1,0 +1,55 @@
+#!/usr/bin/python3
+
+import RPi.GPIO as GPIO
+import time
+import subprocess
+
+# connections:
+#  pir out pin		––> GPIO17 [mandatory]
+#  led in  pin		––> GPIO4  [optional]
+pirOUT=17
+ledIN=27
+
+try:
+  GPIO.setwarnings(False)
+  GPIO.setmode(GPIO.BCM)     # BOARD: physical numberig / BCM "GPIO" numbering
+  GPIO.setup(pirOUT,GPIO.IN,GPIO.PUD_DOWN)     # Read output from PIR motion sensor
+  #GPIO.setup(pirOUT,GPIO.IN,GPIO.PUD_UP)     # Read output from PIR motion sensor
+  GPIO.setup(ledIN,GPIO.OUT) # LED output pin
+
+  if GPIO.input(pirOUT):
+    print('Input was HIGH')
+  else:
+    print('Input was LOW')
+  time.sleep(3)
+
+  while True:
+    i=GPIO.input(pirOUT)
+    if i==0:                 #When output from motion sensor is LOW
+      print("No intruders",i)
+      GPIO.output(ledIN, 0)  #Turn OFF LED
+      time.sleep(0.1)
+    elif i==1:               #When output from motion sensor is HIGH
+      print("Intruder detected",i)
+      GPIO.output(ledIN, 1)  #Turn ON LED
+      # aplay
+      subprocess.call(['aplay -fdat /home/pi/dog.wav'], shell=True)
+      time.sleep(2)
+
+except KeyboardInterrupt:  
+  # here you put any code you want to run before the program   
+  # exits when you press CTRL+C  
+  print("keyboard interruption") # print antthing you want
+  GPIO.output(ledIN, 0)  #Turn OFF LED
+
+except:  
+  # this catches ALL other exceptions including errors.  
+  # You won't get any error messages for debugging  
+  # so only use it once your code is working  
+  print("Other error or exception occurred!")
+  GPIO.output(ledIN, 0)  #Turn OFF LED
+  
+finally:  
+  GPIO.cleanup() # this ensures a clean exit
+
+

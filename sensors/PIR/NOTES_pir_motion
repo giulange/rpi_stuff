@@ -35,11 +35,11 @@ trigger	._| 		|
 	.   L		|
 	|___ ___ ___ ___|
 	    |   |   |
-	   Gr  Out Vcc
-		|   |
-		|   Operating voltage range: DC 4.5-20V
-		|
-		Level output: High 3.3 V /Low 0V    
+	   Vcc Out Gr
+	    |	|   
+	    |	Level output: High 3.3 V /Low 0V    
+	    |	
+	    Operating voltage range: DC 4.5-20V
 #
 # 3. Retriggering
 #	When moving in front of the PIR sensor:
