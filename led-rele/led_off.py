@@ -1,10 +1,14 @@
 #!/usr/bin/python
 
 import RPi.GPIO as GPIO
+import sys
 
-GPIO.setmode(GPIO.BOARD)
+pinLED=int( sys.argv[1] )
 
-GPIO.setup(3,GPIO.OUT)
+GPIO.setmode(GPIO.BCM)
 
-GPIO.output(3,False)
+GPIO.setup(pinLED,GPIO.OUT)
 
+GPIO.output(pinLED,False)
+
+GPIO.cleanup() # this ensures a clean exit
