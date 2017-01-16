@@ -1,3 +1,10 @@
-# this notes refers to the Massimo Langella LCD, which is quite the same as the one sold by Adafruit.
+## LINKS found to install & setup an LCD on rpi.
+
+# The following link refers to the one sold by Adafruit which is quite the same as the Massimo Langella LCD.
 https://cdn-learn.adafruit.com/downloads/pdf/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi.pdf
 
+# ??
+http://www.circuitbasics.com/setup-lcd-touchscreen-raspberry-pi/
+
+# Using a pre-built OS image:
+https://diyhacking.com/raspberry-pi-touchscreen-lcd-tutorial/
