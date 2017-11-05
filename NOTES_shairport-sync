@@ -1,6 +1,8 @@
 # repo is this
 https://github.com/mikebrady/shairport-sync
 
+#   *** Procedure performed on rpi-domotica, rpi-cam ***
+
 # pre-requisites
 #  these may already be installed.
 sudo apt-get install build-essential git
@@ -16,6 +18,8 @@ sudo apt-get install libpolarssl-dev
 #  if not, instructions for how to build it from source for Raspian/Debian Wheezy
 #  are available at LIBSOXR.md.
 sudo apt-get install libsoxr-dev
+# *One shot installation:
+sudo apt-get install build-essential git autoconf automake libtool libdaemon-dev libasound2-dev libpopt-dev libconfig-dev avahi-daemon libavahi-client-dev libssl-dev libpolarssl-dev libsoxr-dev
 
 cd git/
 git clone https://github.com/mikebrady/shairport-sync.git
@@ -25,9 +29,8 @@ cd shairport-sync/
 ps aux | grep systemd | grep -v grep
 
 # config
-autoreconf -i -f
+autoreconf -i -f  # Note that the autoreconf... step may take some time on less powerful machines.
 ./configure --with-alsa --with-avahi --with-ssl=openssl --with-metadata --with-soxr --with-systemd --with-configfile
-
 
 # build the app
 make
@@ -56,5 +59,6 @@ alsa = {
   mixer_control_name = "PCM";
 };
 
-
+# restart R-pi:
+sudo reboot
 

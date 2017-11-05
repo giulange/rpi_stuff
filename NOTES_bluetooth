@@ -1,0 +1,53 @@
+# rpi audio streaming using bluetooth
+#   https://www.raspberrypi.org/forums/viewtopic.php?t=68779
+
+# full config for external bluetooth audio
+#   http://www.instructables.com/id/Turn-your-Raspberry-Pi-into-a-Portable-Bluetooth-A/?ALLSTEPS
+
+# see this link, with a lot of advices:
+#   https://www.raspberrypi.org/forums/viewtopic.php?t=138145&f=28
+
+# How to pair a bluetooth device from command line on Linux:
+#   http://www.heatxsink.com/entry/how-to-pair-a-bluetooth-device-from-command-line-on-linux
+
+
+
+# install packages, unsure they are necessary under Jessy:
+#   [in Jessie, the bluez-utils package has been removed!!]
+sudo apt-get install bluetooth bluez blueman
+
+# installed missing paskage:
+sudo apt-get install rfkill
+
+# status:
+sudo systemctl status bluetooth
+
+# start manually:
+sudo systemctl start bluetooth
+
+# restart:
+sudo systemctl restart bluetooth
+
+# recognize on-board BT address:
+hcitool dev
+
+# Display the current bluetooth configuration:
+sudo hciconfig -a
+
+# scan for external devices:
+hcitool scan
+
+# work from command line:
+sudo bluetoothctl
+help  # ––> you get the full list of commands!!!
+paired-devices
+agent on
+default-agent
+scan on
+pair xx:xx:xx:xx:xx (device id)
+
+(if asked for a "PIN code" -> enter that "PIN code" on your bluetooth keyboard and press ENTER on the bluetooth keyboard)
+
+trust xx:xx:xx:xx:xx (if not asked for a pin code this may work too)
+connect xx:xx:xx:xx:xx
+

@@ -1,0 +1,24 @@
+## LINKS found to install & setup an LCD on rpi.
+
+# THE MOST IMPORTANT!
+# The following link refers to the one sold by Adafruit which is quite the same as the Massimo Langella LCD.
+https://cdn-learn.adafruit.com/downloads/pdf/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi.pdf
+# commands are:
+sudo raspi-config #(expand filesystem)
+sudo reboot
+# install components
+curl -SLs https://apt.adafruit.com/add-pin | sudo bash
+sudo apt-get install raspberrypi-bootloader adafruit-pitft-helper raspberrypi-kernel
+# configure
+sudo adafruit-pitft-helper -t 28r
+
+# ??
+http://www.circuitbasics.com/setup-lcd-touchscreen-raspberry-pi/
+
+# Using a pre-built OS image:
+https://diyhacking.com/raspberry-pi-touchscreen-lcd-tutorial/
+
+# THE MOST IMPORTANT :: 3.2inch RPi LCD (V3)
+http://www.waveshare.com/wiki/3.2inch_RPi_LCD_(B)
+#  this is the source hardware:
+http://www.waveshare.com/3.2inch-rpi-lcd-b.htm

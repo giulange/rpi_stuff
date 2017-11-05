@@ -25,8 +25,18 @@ cat ~/.ssh/id_rsa.pub
 # extend vi to full version
 sudo apt-get install vim
 
-# consider the installation of the following packages too:
+# ****
+# Consider the installation of the following packages too:
 sudo apt-get install htop locate python-pip 
-# ...add others!
 
+# gpiozero :: A simple interface to everyday GPIO components used with Raspberry Pi
+#   https://gpiozero.readthedocs.io/en/v1.3.1/
+sudo apt-get install python3-gpiozero	# python3 – recommended
+sudo apt-get install python-gpiozero	# python2
+# pkg-resources are required:
+sudo apt-get install python3-pkg-resources 
+sudo apt-get install python-pkg-resources 
+
+# ...add others!
+# ****
 

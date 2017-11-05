@@ -1,0 +1,55 @@
+# see https://www.raspberrypi.org/forums/viewtopic.php?t=128776&p=861420
+
+# ________________________
+# The DS18B20 has three pins, looking at the flat side with the pins pointing
+# down pin 1 is on the left
+# connect pin 1 to GPIO ground
+# connect pin 2 to GPIO 4 *and* GPIO 3.3V via a 4k8 (4800 ohm) pullup resistor
+# connect pin 3 to GPIO 3.3V
+# You can connect more than one sensor to the same set of pins
+# Only one pullup resistor is required
+
+# connection on GPIO:
+
+ /- pin-1 | ––––––> 3.3v
+(   pin-2 | ––––––> yellow 4.7 kOhm –––> gpio#4
+ \_ pin-3 | ––––––> ground
+
+silver 4.7 kOhm ––> 3.3v
+# ________________________
+
+# link	––> https://www.modmypi.com/raspberry-pi/set-up-kits/project-kits/raspberry-pi-youtube-workshop-kit
+# video	––> https://www.youtube.com/watch?v=S2v1VNgHnvI
+# doc	––> Worksheet 7 Temperature.docx
+# see this file in Dropbox :: sensor__DS18B20_prog.pdf
+
+# -1- load kernel modules
+#   manual entry
+sudo modprobe w1-gpio && sudo modprobe w1_therm
+#   automatic at startup
+vi /etc/modules
+#   add the follwing:
+w1-gpio
+w1_therm
+
+# -2- add entry in config.txt
+sudo vi /boot/config.txt
+#   add this:
+dtoverlay=w1-gpio
+
+# -3- reboot
+sudo reboot
+
+# -4- list devices currently connected to the Rpi
+ls -l /sys/bus/w1/devices/
+
+# -5- read temperature
+cat /sys/bus/w1/devices/28-*
+
+# -6- run one of these:
+#  for first sensor in the list:
+sudo python 01_ds18b20__first-sensor.py
+#  for all sensors connected on Rpi board:
+sudo python 02_ds18b20__multiple-sensors.py
+
+

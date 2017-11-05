@@ -1,0 +1,49 @@
+# PIR = Passive Infra-Red, made by a pyroelectric sensor.
+
+# Exhaustive reference, also on device technical characteristics:
+#   Instructables:
+#     http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/?ALLSTEPS
+#   Adafruit:
+#     https://learn.adafruit.com/pir-passive-infrared-proximity-motion-sensor/overview
+
+# AptoFun HC-SR501 :: bought 2pcs from Amazon
+#
+# 1. Features: 
+#	Product Type: HC--SR501 Body Sensor Module 
+#	Operating voltage range: DC 4.5-20V 
+#	Quiescent Current: <50uA 
+#	Level output: High 3.3 V /Low 0V 
+#	Trigger: L cannot be repeated trigger/H can be repeated trigger(Default repeated trigger) 
+#	Delay time: 5-200S(adjustable) the range is (0.xx second to tens of second) 
+#	Block time: 2.5S(default)Can be made a range(0.xx to tens of seconds 
+#	Board Dimensions: 32mm*24mm 
+#	Angle Sensor: <100 ° cone angle 
+#	Operation Temp: -15-+70 degrees 
+#	Lens size sensor: Diameter:23mm(Default)
+#
+# 2. Schematics:
+
+	      Time Delay Adjust
+	      |
+	      |   Sensitivity Adjust
+	      |   |
+	______X___X______
+	|		|
+	|		|
+	._  H		|
+trigger	._| 		|
+	.   L		|
+	|___ ___ ___ ___|
+	    |   |   |
+	   Vcc Out Gr
+	    |	|   
+	    |	Level output: High 3.3 V /Low 0V    
+	    |	
+	    Operating voltage range: DC 4.5-20V
+#
+# 3. Retriggering
+#	When moving in front of the PIR sensor:
+#	 > jumper on L ––> the led doesn't stay on but actually turns on and off;
+#	 > jumper on H ––> the led does stay on the entire time of movement.
+
+
