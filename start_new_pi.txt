@@ -8,9 +8,13 @@ sudo raspi-config
 
 # set static address (see static-ip-config file)
 
+# ssh
+ssh-keygen -t rsa -b 4096
+# passwordless connection
+http://www.linuxproblem.org/art_9.html
+
 # git
 sudo apt-get install git
-ssh-keygen -t rsa -b 4096
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 # then add public key to github
