@@ -37,6 +37,15 @@ sudo apt-get install python-gpiozero	# python2
 sudo apt-get install python3-pkg-resources 
 sudo apt-get install python-pkg-resources 
 
+# enable I2C
+sudo raspi-config # enable i2c
+sudo apt-get install i2c-tools # to install i2c tools
+# for instance install Bright Pi v1.0 (ir led for the camera)
+# see https://www.pi-supply.com/make/bright-pi-quickstart-faq/
+# test the correct presence of the Bright Pi:
+sudo i2cdetect -y 1 # find the '70' in the print!
+
+
 # ...add others!
 # ****
 
