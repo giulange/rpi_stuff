@@ -1,0 +1,45 @@
+# notes on how to install motioneye to build a surveillance video network.
+
+# go to :: https://github.com/ccrisan/motioneye/wiki/Installation
+
+# become superuser:
+sudo su -
+
+# Requirements:
+#  python 2.7
+python --version
+#  ffmpeg (optional)
+apt-get install ffmpeg
+apt-get remove libavcodec-extra-56 libavformat56 libavresample2 libavutil54
+#  dependencies:
+apt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev libx264-142 libavcodec56 libavformat56 libmysqlclient18 libswscale3 libpq5
+#  motion (optional if the current machine act as a hib for other motionEye-based cameras)
+apt-get install motion
+
+# I N S T A L L A T I O N
+pip install motioneye
+
+# C O N F I G U R A T I O N
+# Prepare the configuration directory:
+#
+mkdir -p /etc/motioneye
+cp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf
+#   Prepare the media directory:
+#
+mkdir -p /var/lib/motioneye
+#    Add an init script, configure it to run at startup and start the motionEye server:
+cp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service
+systemctl daemon-reload
+systemctl enable motioneye
+systemctl start motioneye
+# To upgrade to the newest version of motionEye, just issue:
+#
+pip install motioneye --upgrade
+systemctl restart motioneye
+
+# I N C O M P L E T E
+# do this operations: Running Behind Nginx at https://github.com/ccrisan/motioneye/wiki/Running-Behind-Nginx
+#
+#
+
+
