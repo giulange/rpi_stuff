@@ -37,6 +37,9 @@ systemctl start motioneye
 pip install motioneye --upgrade
 systemctl restart motioneye
 
+# password is stored in:
+sudo vi /etc/motioneye/motion.conf
+
 # I N C O M P L E T E
 # do this operations: Running Behind Nginx at https://github.com/ccrisan/motioneye/wiki/Running-Behind-Nginx
 #
