@@ -1,0 +1,35 @@
+# rpiv's ip:
+192.168.1.31	studio
+192.168.1.32	salone
+192.168.1.33	bagno
+192.168.1.34	francesco
+192.168.1.35	rosaria
+192.168.1.36	parents
+192.168.1.37	cucina
+192.168.1.38	bkitchen
+192.168.1.39	bparents
+192.168.1.40	bchildren
+
+# Operations to perform in order to setup a new rpiv for deployment:
+# 1.\ prepare microSD card using the default OS system (192.168.1.31)
+diskutil list
+sudo diskutil partitionDisk /dev/disk2 1 MBR "Free Space" "%noformat%" 100%
+gzip -dc ~/rpi/OS_videosorveglianza.gz | sudo dd of=/dev/disk2
+# 2.\ poweroff the studio rpiv (to avoid network conflict)
+# 3.\ connect rj45 and microUSB(B) cable to the new rpiv
+# 4.\ configure the new OS:
+sudo raspi-config # expand filesystem, change network name to the new one
+sudo vi /etc/dhcpcd.conf # set the new last 8-bit number (e.g. 36 for parents) for both WiFi and Wired
+# 5.\ change the motionEye device name
+http://192.168.1.36:8765 # change Camera Name to Parents
+# 6.\ add the new motionEye device to the studio list at
+http://rpi-giuliano.noip.me:8765
+add camera...
+Remote motionEye Camera
+...
+# THAT'S ALL !!
+
+# To power off a remote rpiv run this command:
+ssh pi@192.168.1.36 sudo poweroff
+
+
