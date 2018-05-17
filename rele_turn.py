@@ -39,11 +39,11 @@ GPIO.setup(PIN_RELE, GPIO.OUT, initial=True)
 #GPIO.setup(PIN_RELE,GPIO.OUT)
 
 if int(sys.argv[2])==0:
-  print "powering off the rpiv:"
-  call(['ssh',IP,'sudo poweroff'])
   time.sleep( PAUSE )
   print "Rele :: opened contact"
   GPIO.output(PIN_RELE,GPIO.LOW)
 else:
+  print "powering off the rpiv:"
+  call(['ssh',IP,'sudo poweroff'])
   print "Rele :: closed contact"
   GPIO.output(PIN_RELE,GPIO.HIGH)
