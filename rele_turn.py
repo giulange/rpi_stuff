@@ -16,11 +16,12 @@
 #  rele_turn.py 17 0 36 # turn off p-supply rpi-studio
 
 # this is useful to poweroff the rpiv before to turn off the power supply:
-from subprocess import call
+#from subprocess import call
 
 import RPi.GPIO as GPIO
 import time
 import sys
+import os
 
 GPIO.setwarnings(False)
 
@@ -30,20 +31,27 @@ GPIO.setmode(GPIO.BCM)   # referring to the pins by the "Broadcom SOC channel" n
 #GPIO.setmode(GPIO.BOARD)# referring to the pins by the number of the pin the the plug
 
 # PARs
-PAUSE = 3
+PAUSE_1 = 1
+PAUSE_2 = 10
 
-IP = 'pi@192.168.1.' + sys.argv[3]
+IP  = 'pi@192.168.1.' + sys.argv[3]
+CMD = 'ssh ' + IP + ' sudo poweroff &'
 
 # Set GPIO to output
 GPIO.setup(PIN_RELE, GPIO.OUT, initial=True)
 #GPIO.setup(PIN_RELE,GPIO.OUT)
 
 if int(sys.argv[2])==0:
-  time.sleep( PAUSE )
-  print "Rele :: opened contact"
+  print "powering on the rpiv: " + IP
   GPIO.output(PIN_RELE,GPIO.LOW)
+  time.sleep( PAUSE_1 )
+  print "Rele :: opened contact"
 else:
-  print "powering off the rpiv:"
-  call(['ssh',IP,'sudo poweroff'])
-  print "Rele :: closed contact"
+  print "powering off the rpiv: " + IP
+ #call(['ssh',IP,'sudo poweroff'])
+  x = os.system( CMD )
+  time.sleep( PAUSE_2 )
   GPIO.output(PIN_RELE,GPIO.HIGH)
+  print "Rele :: closed contact"
+
+

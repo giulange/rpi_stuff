@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#-----------------------------------------------------------
+#               GPIO, RELE,  IP,   ID,  NAME
+#-----------------------------------------------------------
+ ./rele_turn.py  4    0      232   #01  rpiv-bagno
+ ./rele_turn.py 17    0      35    #02  rpiv-rosaria
+ ./rele_turn.py 27    0      34    #03  rpiv-francesco
+ ./rele_turn.py 22    0      31    #04  rpiv-studio
+#./rele_turn.py 18    0      000   #05  power-amp studio
+#./rele_turn.py 23    0      232   #06  rpi-
+#./rele_turn.py 24    0      232   #07  rpi-
+#./rele_turn.py 25    0      232   #08  rpi-
+#-----------------------------------------------------------
+
