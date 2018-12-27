@@ -31,8 +31,8 @@ GPIO.setmode(GPIO.BCM)   # referring to the pins by the "Broadcom SOC channel" n
 #GPIO.setmode(GPIO.BOARD)# referring to the pins by the number of the pin the the plug
 
 # PARs
-PAUSE_1 = 1
-PAUSE_2 = 10
+PAUSE_1 = 2 # sec
+PAUSE_2 = 15# sec
 
 IP  = 'pi@192.168.1.' + sys.argv[3]
 CMD = 'ssh ' + IP + ' sudo poweroff &'
@@ -45,13 +45,13 @@ if int(sys.argv[2])==0:
   print "powering on the rpiv: " + IP
   GPIO.output(PIN_RELE,GPIO.LOW)
   time.sleep( PAUSE_1 )
-  print "Rele :: opened contact"
+  print "Rele :: closed contact"
 else:
   print "powering off the rpiv: " + IP
  #call(['ssh',IP,'sudo poweroff'])
   x = os.system( CMD )
   time.sleep( PAUSE_2 )
   GPIO.output(PIN_RELE,GPIO.HIGH)
-  print "Rele :: closed contact"
+  print "Rele :: opened contact"
 
 

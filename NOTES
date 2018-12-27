@@ -1,6 +1,13 @@
 # query ip addresses of devices under local network
 sudo nmap -sP 192.168.1.0/24 # ––> complete list
 sudo nmap -sP 192.168.1.0/24 | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}' #––> only pi-s
+# sql install on rpi-master
+#   http://recipes.item.ntnu.no/setting-up-an-sql-database-on-the-raspberry-pi/
+sudo apt-get install mysql-server python-mysqldb
+# PSWD ––> gl-sql-pswd
+mysql -u root -p
+
+
 
 # How can I determine which OS image I am running?
 cat /etc/os-release

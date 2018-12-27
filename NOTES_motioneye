@@ -37,6 +37,20 @@ systemctl start motioneye
 pip install motioneye --upgrade
 systemctl restart motioneye
 
+# to test whether the pi-camera is correctly installed:
+vcgencmd get_camera
+# which should get 'supported = 1, detected = 1'
+
+# in case of MMAL camera (such as doorbell), follow this instructions if you cannot 
+# add the camera to the centralized motioeye portal (i.e. studio one):
+# https://raspberrypi.stackexchange.com/questions/13764/what-causes-enospc-error-when-using-the-raspberry-pi-camera-module
+# i.e. add the "bcm2708.w1_gpio_pin=18" to the file:
+/boot/cmdline.txt
+
+# default pswd is
+admin
+[no password]
+
 # password is stored in:
 sudo vi /etc/motioneye/motion.conf
 
