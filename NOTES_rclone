@@ -1,0 +1,39 @@
+# Notes about how to let rclone work!
+
+1. I configured a dedicated rpi with all external HDDs connected via a powered USB hub
+
+2. I installed rclone on rclone-pi https://pimylifeup.com/raspberry-pi-rclone/
+
+3. I continue using previously configured scripts to automate the sync of different servers, /media/TM01/rclone/rclone-pi-stuff/
+
+4. I have to setup servers if not done yet. 
+   Configurations are saved by default at /home/pi/.config/rclone/rclone.conf. 
+   To set up a new server I need to have a working VNC connection to rclone-pi (see NOTES file related to VNC setup), because the procedure needs to run a browser (I installed firefox) for the authentication process on the servers reported below.
+   Connect to rclone-pi via VNC, open terminal and run `rclone config`.
+   I repeated the procedure for {dropbox,onedrive,googledrive}. In future I can avoid to 
+
+5. Once I have in rclone.conf all the configurations, I copied it to /media/TM01 HDD for future reference, and for docker reference, in case the rclone-pi SD will have issues.
+   /media/TM01/rclone/rclone-pi-stuff/config
+
+6. Install docker-compose on rclone-rpi, https://dev.to/elalemanyo/how-to-install-docker-and-docker-compose-on-raspberry-pi-1mo
+```
+sudo apt-get install libffi-dev libssl-dev
+sudo apt install python3-dev
+sudo apt-get install -y python3 python3-pip
+sudo pip3 install docker-compose
+sudo systemctl enable docker
+```
+
+7. Run docker compose
+```
+docker-compose -f /media/TM01/rclone/rclone-pi-stuff/docker_rclone.yml up -d
+```
+
+8. goto rclone-rpi via VNC, open internet browser and goto localhost:5572 ––> enter credentials set in yml file (--rc-user giuliano --rc-pass antonietta) twice and join the rclone webapp !
+
+9. You can do the same at http://192.168.1.6:5572
+
+10. add the port forwarding to the home router and use http://rpi-giuliano.noip.me:5572
+
+
+
