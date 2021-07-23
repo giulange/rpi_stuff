@@ -1,4 +1,6 @@
 # Notes about how to let rclone work!
+#  see this to better understand how docker works with networks: https://web.archive.org/web/20200808071950/https://pythonspeed.com/articles/docker-connection-refused/
+
 
 1. I configured a dedicated rpi with all external HDDs connected via a powered USB hub
 
