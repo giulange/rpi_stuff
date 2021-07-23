@@ -1,0 +1,43 @@
+## links
+# https://www.cyberciti.biz/tips/fdisk-unable-to-create-partition-greater-2tb.html
+
+# list available HDD
+sudo fdisk -l
+# I got 4 HDD :: {sda, sdb, sdd, sde}
+
+# current HDD, which is TerraMaster 10TB:
+sudo fdisk -l /dev/sda
+
+# Create linux partition
+sudo parted /dev/sda
+ help
+ print
+mklabel gpt
+unit TB
+ print
+mkpart primary ext4 0.00TB 10.00TB
+ print
+
+# quit & save
+quit
+
+# now format the file system
+sudo mkfs.ext4 /dev/sda1
+# ... wait till the procedure is finished!
+
+## now you can mount the HDD and set parameters in fstab!
+# create path:
+sudo mkdir /media/TM01
+# read the UUID
+sudo blkid /dev/sda1
+# write the fstab instance:
+sudo vi /etc/fstab
+# and add the following:
+	UUID=fced35f0-6ed8-4169-a92d-48f34ad188a3       /media/TM01             ext4    noauto                                  0       2
+# either you restart or you run:
+sudo mount /dev/sda1
+# set user permissions:
+sudo chown -R pi:pi /media/TM01
+# now you are ready to use HDD with permissions for all users.
+
+# Now repeat for each TerraMaster HDD!!

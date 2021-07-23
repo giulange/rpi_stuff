@@ -1,0 +1,15 @@
+# Here I start listing the IPs of the solenoid valve devices used for the irrigation net.
+# I decided to assign the series 70's to the irrigation net.
+# The next step will be to create a script to query the status of devices controlling the irrigation net.
+
+# Here follows the list of valves with associated IPs:
+# item       ip            mac-address        device   valve        position
+# valve00    192.168.1.70  60:01:94:74:49:d7  nodeMCU  12v          test
+# valve01    ...           ...                nodeMCU  4v5          ...
+# valve02
+# valve03
+# valve04
+# valve05
+# valve06
+
+

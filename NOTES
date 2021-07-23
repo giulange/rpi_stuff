@@ -1,13 +1,49 @@
 # query ip addresses of devices under local network
 sudo nmap -sP 192.168.1.0/24 # ––> complete list
 sudo nmap -sP 192.168.1.0/24 | awk '/^Nmap/{ip=$NF}/B8:27:EB/{print ip}' #––> only pi-s
-# sql install on rpi-master
+
+# vnc server
+#  - see this in case of issues: http://www.mst-tutorial.it/raspbian-mst-tutorial-version-xfce4/
+#  - and this: https://raspberrypi.stackexchange.com/questions/60874/tightvncserver-displaying-grey-screen-on-kali-linux-upon-vnc-connection
+# it worked on rclone-pi after one month of issues!!!
+
+# query raspberry temperature:
+vcgencmd measure_temp
+# get temperature at ssh login:
+edit a file in /etc/update-motd.d/ such as 10-info with +x chmod.
+
+# LEMP install on RASPBERRY-PI [rpi-master]
+# -MYSQL
 #   http://recipes.item.ntnu.no/setting-up-an-sql-database-on-the-raspberry-pi/
 sudo apt-get install mysql-server python-mysqldb
 # PSWD ––> gl-sql-pswd
 mysql -u root -p
 
+# -NGINX
+sudo apt-get install nginx
 
+# -APACHE
+#    https://howtoraspberrypi.com/how-to-install-web-server-raspberry-pi-lamp/
+sudo apt update
+sudo apt upgrade
+sudo apt install apache2
+#
+wget -O check_apache.html http://127.0.0.1
+#
+sudo chown -R pi:www-data /var/www/html/
+sudo chmod -R 770 /var/www/html/
+
+# -PHP
+#   https://thepi.io/how-to-set-up-a-web-server-on-the-raspberry-pi/
+sudo apt-get install php5-fpm php5-mysql
+sudo vi /etc/php5/fpm/php.ini
+#  cgi.fix_pathinfo=0
+sudo systemctl restart php5-fpm
+# ---not working---
+# ---tried the following---
+#   https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md
+sudo apt-get install php5 libapache2-mod-php5 php5-mysql -y
+# ---it worked!!---
 
 # How can I determine which OS image I am running?
 cat /etc/os-release

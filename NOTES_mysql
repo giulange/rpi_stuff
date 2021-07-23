@@ -1,0 +1,38 @@
+# LEMP install on RASPBERRY-PI [rpi-master]
+# -MYSQL
+#   http://recipes.item.ntnu.no/setting-up-an-sql-database-on-the-raspberry-pi/
+sudo apt-get install mysql-server python-mysqldb
+# PSWD ––> gl-sql-pswd
+mysql -u root -p
+
+# COMMANDS TO CREATE USER/DATABASE FOR LOW-COST WEATHER STATIONS
+# create user 
+mysql -hlocalhost -uroot -pgl-sql-pswd -e "CREATE USER 'wwwdata'@'localhost' IDENTIFIED BY 'mywappsql'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON waspmote_net.* TO 'wwwdata'@'localhost';"
+
+# CREATE TABLE USING THE FOLLOWING COMMANDS:
+SET sql_mode = '';
+CREATE DATABASE IF NOT EXISTS waspmote_net;
+DROP TABLE IF EXISTS waspmote_net.measurements;
+CREATE TABLE waspmote_net.measurements (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	created TIMESTAMP DEFAULT NOW(),
+	cur_timestamp TIMESTAMP,
+	node_id CHAR(9) NOT NULL,
+	date DATE NOT NULL,
+	time TIME NOT NULL,
+	B INT(2) ZEROFILL,
+	T DECIMAL(5,2),
+	R DECIMAL(5,2),
+	RH DECIMAL(5,2),
+	LW INT(2),
+	WD CHAR(3),
+	WS DECIMAL(5,2)
+)
+
+mysql -hlocalhost -uroot -pgl-sql-pswd < ~/git/rpi_stuff/tblcrt_meas.sql
+
+mysql -hlocalhost -uroot -pgl-sql-pswd -e "use waspmote_net; select * from measurements;"
+
+
+# allow a remote user from specific IP (e.g. the openhab user from the rpi-openhab at 192.168.1.80):
+mysql -hlocalhost -uroot -pgl-sql-pswd -e "CREATE USER 'openhab'@'192.168.1.80' IDENTIFIED BY 'racc_msql18'; GRANT ALL PRIVILEGES ON waspmote_net.* TO 'openhab'@'192.168.1.80' IDENTIFIED BY 'racc_msql18' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;"

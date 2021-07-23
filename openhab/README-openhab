@@ -1,3 +1,8 @@
+# Understand how to put things together in openhab2:
+https://community.openhab.org/t/openhab2-rpi-system-temperature-and-ds18b20-onewire-chart-with-persistence/35182
+# Read this doc exhaustively to understand the new openhab2 world:
+https://www.openhab.org/docs/configuration/items.html
+
 # install openhab on Raspbian (Jessie)
 #  follow instructions here :: https://github.com/openhab/openhab/wiki/Linux-and-OS-X#apt-get
 #  remember that jessie is based on systemd
@@ -19,3 +24,10 @@ sudo systemctl start  openhab
 
 # icons
 ls -la /usr/share/openhab/webapps/images/
+
+# enable access to another server to execute script
+#   https://community.openhab.org/t/openhab-to-access-other-server-via-ssh-to-execute-script/39163
+sudo -u openhab ssh-keygen -t rsa
+sudo -u openhab ssh-copy-id -i /var/lib/openhab2/.ssh/id_rsa.pub pi@192.168.1.234
+sudo -u openhab ssh pi@192.168.1.234
+
